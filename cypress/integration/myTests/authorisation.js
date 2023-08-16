@@ -1,31 +1,26 @@
 context('Проверка авторизации', function() {
 
     beforeEach(function() {
-        cy.visit('http://51.250.1.158:49153')
+        cy.visit('/')
     })
 
     it('Дымовой тест: проверка авторизации c login=admin, password=admin', () => {
 
-        cy.login
-        cy.get('[placeholder="Пароль"]').type('admin')
-        cy.get('[value="Войти"]').click()
+        cy.login('admin','admin')
+
         cy.url().should('include', '/login')
 
     })
 
     it('проверка авторизации с login=админ, password=admin', () => {
 
-        cy.get('[placeholder="Имя пользователя"]').type('админ')
-        cy.get('[placeholder="Пароль"]').type('admin')
-        cy.get('[value="Войти"]').click()
+        cy.login('админ','admin')
 
     })
 
-    it.only('проверка авторизации с login=admin, password=а', () => {
+    it('проверка авторизации с login=admin, password=а', () => {
 
-        cy.login
-        cy.get('[placeholder="Пароль"]').type('a')
-        cy.get('[value="Войти"]').click()
+        cy.login('admin','a')
 
     })
 
@@ -37,17 +32,13 @@ context('Проверка авторизации', function() {
 
     it('проверка авторизации с целочисленными данными', () => {
 
-        cy.get('[placeholder="Имя пользователя"]').type('5')
-        cy.get('[placeholder="Пароль"]').type('555')
-        cy.get('[value="Войти"]').click()
+        cy.login('5','555')
 
     })
 
     it('проверка авторизации со знаковыми данными', () => {
 
-        cy.get('[placeholder="Имя пользователя"]').type('@')
-        cy.get('[placeholder="Пароль"]').type('##')
-        cy.get('[value="Войти"]').click()
+        cy.login('@','##')
 
     })
 
